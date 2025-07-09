@@ -1,6 +1,6 @@
-﻿using FalseSpirits.Entities;
+﻿using MonoGameTemplate.Entities;
 
-namespace FalseSpirits.Components
+namespace MonoGameTemplate.Components
 {
     public class PositionComponent : IComponent
     {

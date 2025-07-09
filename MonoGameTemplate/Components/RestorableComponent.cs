@@ -1,6 +1,6 @@
-﻿using FalseSpirits.Entities;
+﻿using MonoGameTemplate.Entities;
 
-namespace FalseSpirits.Components
+namespace MonoGameTemplate.Components
 {
     public enum RestorationState
     {

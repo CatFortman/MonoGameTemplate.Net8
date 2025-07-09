@@ -1,7 +1,7 @@
-﻿using FalseSpirits.Components;
-using FalseSpirits.Entities;
+﻿using MonoGameTemplate.Components;
+using MonoGameTemplate.Entities;
 
-namespace FalseSpirits.Systems
+namespace MonoGameTemplate.Systems
 {
     public class RestorationSystem : ISystem
     {

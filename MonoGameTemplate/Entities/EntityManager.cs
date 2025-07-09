@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace FalseSpirits.Entities
+namespace MonoGameTemplate.Entities
 {
     public class EntityManager
     {

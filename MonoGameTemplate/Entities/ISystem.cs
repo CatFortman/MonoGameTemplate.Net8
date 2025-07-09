@@ -1,4 +1,4 @@
-﻿namespace FalseSpirits.Entities
+﻿namespace MonoGameTemplate.Entities
 {
     public interface ISystem
     {
