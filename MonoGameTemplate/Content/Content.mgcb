@@ -16,6 +16,24 @@
 #begin atlas-definition.xml
 /copy:atlas-definition.xml
 
+#begin Audio/bounce.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/bounce.wav
+
+#begin Audio/collect.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/collect.wav
+
+#begin Audio/theme.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Audio/theme.ogg
+
 #begin Maps/atlas.png
 /importer:TextureImporter
 /processor:TextureProcessor
