@@ -1,6 +1,5 @@
 ﻿using System;
 using MonoGameTemplate.Entities;
-using MonoGameTemplate.Systems;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -20,7 +19,6 @@ public class Game1 : Core
 {
     // ECS-related
     private EntityManager _entityManager;
-    private RestorationSystem _restorationSystem;
 
     // Defines the slime animated sprite.
     private AnimatedSprite _slime;
@@ -67,7 +65,6 @@ public class Game1 : Core
 
         // Initialize ECS
         _entityManager = new EntityManager();
-        _restorationSystem = new RestorationSystem();
 
         // Create a tree entity
         //var tree = _entityManager.CreateEntity();
