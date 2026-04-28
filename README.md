@@ -152,3 +152,8 @@ Potential additions:
 - Audio manager
 - Shader/effects support
 - Save/load system
+
+
+## Acknowledgements
+
+This project was initially inspired by and partially derived from the official MonoGame 2D tutorial series, then extended into a reusable starter template.
