@@ -70,15 +70,7 @@ public class Game1 : Core
         //var tree = _entityManager.CreateEntity();
         //tree.AddComponent(new PositionComponent(10, 20));
         //tree.AddComponent(new RestorableComponent(RestorationState.Corrupted));
-
-        Rectangle screenBounds = GraphicsDevice.PresentationParameters.Bounds;
-
-        _roomBounds = new Rectangle(
-             (int)_tilemap.TileWidth,
-             (int)_tilemap.TileHeight,
-             screenBounds.Width - (int)_tilemap.TileWidth * 2,
-             screenBounds.Height - (int)_tilemap.TileHeight * 2
-         );
+      
 
         // Initial slime position will be the center tile of the tile map.
         int centerRow = _tilemap.Rows / 2;
@@ -94,6 +86,15 @@ public class Game1 : Core
 
     protected override void LoadContent()
     {
+         Rectangle screenBounds = GraphicsDevice.PresentationParameters.Bounds;
+
+        _roomBounds = new Rectangle(
+             (int)_tilemap.TileWidth,
+             (int)_tilemap.TileHeight,
+             screenBounds.Width - (int)_tilemap.TileWidth * 2,
+             screenBounds.Height - (int)_tilemap.TileHeight * 2
+         );
+         
          // Create the texture atlas from the XML configuration file
         TextureAtlas atlas = TextureAtlas.FromFile(Content, "atlas-definition.xml");
 

@@ -24,7 +24,7 @@ public class Core : Game
     /// <summary>
     /// Gets the graphics device used to create graphical resources and perform primitive rendering.
     /// </summary>
-    public static new GraphicsDevice GraphicsDevice { get; private set; }
+    public static new GraphicsDevice Device { get; private set; }
 
     /// <summary>
     /// Gets the sprite batch used for all 2D rendering.
@@ -34,7 +34,7 @@ public class Core : Game
     /// <summary>
     /// Gets the content manager used to load global assets.
     /// </summary>
-    public static new ContentManager Content { get; private set; }
+    public static new ContentManager ContentManager { get; private set; }
 
 
     /// <summary>
@@ -96,10 +96,10 @@ public class Core : Game
 
         // Set the core's graphics device to a reference of the base Game's
         // graphics device.
-        GraphicsDevice = base.GraphicsDevice;
+        Device = base.GraphicsDevice;
 
         // Create the sprite batch instance.
-        SpriteBatch = new SpriteBatch(GraphicsDevice);
+        SpriteBatch = new SpriteBatch(Device);
 
         // Create a new input manager.
         Input = new InputManager();
