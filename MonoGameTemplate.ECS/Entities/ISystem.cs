@@ -1,4 +1,4 @@
-﻿namespace MonoGameTemplate.Entities
+﻿namespace MonoGameTemplate.ECS.Entities
 {
     public interface ISystem
     {

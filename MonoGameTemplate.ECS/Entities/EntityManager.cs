@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MonoGameTemplate.Entities
+namespace MonoGameTemplate.ECS.Entities
 {
     public class EntityManager
     {

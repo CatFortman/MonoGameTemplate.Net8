@@ -1,8 +1,38 @@
 # MonoGameTemplate.Net8
 
-A reusable starter template for building 2D desktop games with MonoGame and .NET 8.
+A reusable starter template for building 2D desktop games with MonoGame and .NET 8. Provides reusable engine components and services while remainig architecture-agnostic.
 
 This project provides a clean, modern foundation for creating MonoGame projects using the DesktopGL framework, with support for content management, reusable shared libraries, and preconfigured assets.
+
+**Purpose:**
+Provides reusable engine components and services. Architecture-agnostic.
+
+**Includes:**
+
+- `Core` → Game lifecycle, initialization
+- `GameContext` → Shared runtime services (GraphicsDevice, SpriteBatch, Input, Content)
+- `Graphics/` → Rendering primitives (Sprite, AnimatedSprite, Tilemap, etc.)
+- `Input/` → Input abstraction (Keyboard, Mouse, GamePad)
+- `Models/` → Math/collision helpers (Circle, etc.)
+
+**Used by:**
+
+- OOP Template ✅
+- ECS Template ✅
+
+**Mapping: Who Uses What**
+
+| Component     | OOP Template | ECS Template |
+| ------------- | ------------ | ------------ |
+| Core          | Yes          | Yes          |
+| GameContext   | Optional     | Yes          |
+| Graphics      | Yes          | Yes          |
+| Input         | Yes          | Yes          |
+| Models        | Yes          | Yes          |
+| IGameSystem   | No           | Yes          |
+| SystemManager | No           | Yes          |
+| EntityManager | Optional     | Yes          |
+
 
 ## Features
 
@@ -14,17 +44,23 @@ This project provides a clean, modern foundation for creating MonoGame projects 
 - Supports audio asset organization
 - Ready-to-run starter architecture for 2D games
 
+
+
 ## Solution Structure
 
 ```text
 MonoGameTemplate.Net8/
 │
 ├── MonoGameLibrary/
-│   ├── MonoGameLibrary.csproj
-│   └── Shared game logic, utilities, components
+│   ├── Graphics
+│   ├── Inputs
+│   ├── Models
+│   ├── Systems
+│   ├── GameContext.cs
+│   └── MonoGameLibrary.csproj
 │
-├── MonoGameTemplate/
-│   ├── MonoGameTemplate.csproj
+├── MonoGameTemplate.OOP/
+│   ├── MonoGameTemplate.OOP.csproj
 │   ├── Content/
 │   │   ├── Audio/
 │   │   └── Content.mgcb
@@ -95,7 +131,7 @@ dotnet build
 ### Run the Project
 
 ```
-dotnet run --project MonoGameTemplate
+dotnet run --project MonoGameTemplate.OOP
 ```
 
 ## Content Pipeline

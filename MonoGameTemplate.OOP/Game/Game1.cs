@@ -1,5 +1,4 @@
 ﻿using System;
-using MonoGameTemplate.Entities;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
@@ -9,17 +8,10 @@ using MonoGameLibrary;
 using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Input;
 
-
-//using MonoGame.Extended.Tiled.Renderers;
-//using MonoGame.Extended.Tiled;
-
-namespace MonoGameTemplate.Game1;
+namespace MonoGameTemplate.OOP.Game1;
 
 public class Game1 : Core
 {
-    // ECS-related
-    private EntityManager _entityManager;
-
     // Defines the slime animated sprite.
     private AnimatedSprite _slime;
 
@@ -54,23 +46,13 @@ public class Game1 : Core
     // The sound effect to play when the slime eats a bat.
     private SoundEffect _collectSoundEffect;
 
-    public Game1() : base("MonoGameTemplate", 1280, 720, false)
+    public Game1() : base("MonoGameTemplate.OOP", 1280, 720, false)
     {        
     }
 
     protected override void Initialize()
     {
-
-        base.Initialize();
-
-        // Initialize ECS
-        _entityManager = new EntityManager();
-
-        // Create a tree entity
-        //var tree = _entityManager.CreateEntity();
-        //tree.AddComponent(new PositionComponent(10, 20));
-        //tree.AddComponent(new RestorableComponent(RestorationState.Corrupted));
-      
+        base.Initialize();    
 
         // Initial slime position will be the center tile of the tile map.
         int centerRow = _tilemap.Rows / 2;
@@ -94,7 +76,7 @@ public class Game1 : Core
              screenBounds.Width - (int)_tilemap.TileWidth * 2,
              screenBounds.Height - (int)_tilemap.TileHeight * 2
          );
-         
+
          // Create the texture atlas from the XML configuration file
         TextureAtlas atlas = TextureAtlas.FromFile(Content, "atlas-definition.xml");
 
@@ -139,10 +121,6 @@ public class Game1 : Core
     {
         if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
             Exit();
-
-        // Run ECS systems
-        //_mapRenderer.Update(gameTime);
-        //_restorationSystem.Update(_entityManager);
 
         // Update the slime animated sprite.
         _slime.Update(gameTime);

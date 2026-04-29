@@ -1,6 +1,6 @@
-﻿using MonoGameTemplate.Entities;
+﻿using MonoGameTemplate.ECS.Entities;
 
-namespace MonoGameTemplate.Components
+namespace MonoGameTemplate.ECS.Components
 {
     public class PositionComponent : IComponent
     {
