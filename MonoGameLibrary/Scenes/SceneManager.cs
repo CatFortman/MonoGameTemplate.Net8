@@ -6,16 +6,29 @@ public class SceneManager
 {
     private IScene _currentScene;
 
-    public void ChangeScene(IScene scene, GameContext context)
+    private readonly GameContext _context;
+
+    public SceneManager(GameContext context)
     {
-        _currentScene?.Unload();
-        _currentScene = scene;
-        _currentScene.Load(context);
+        _context = context;
     }
 
-    public void Update(GameContext context, GameTime gameTime)
-        => _currentScene?.Update(context, gameTime);
+    public void ChangeScene(IScene newScene)
+    {
+        _currentScene?.Unload();
 
-    public void Draw(GameContext context, GameTime gameTime)
-        => _currentScene?.Draw(context, gameTime);
+        _currentScene = newScene;
+
+        _currentScene.Load(_context);
+    }
+
+    public void Update(GameTime gameTime)
+    {
+        _currentScene?.Update(_context, gameTime);
+    }
+
+    public void Draw(GameTime gameTime)
+    {
+        _currentScene?.Draw(_context, gameTime);
+    }
 }

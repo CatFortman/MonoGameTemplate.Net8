@@ -1,6 +1,9 @@
+using MonoGameLibrary.Components;
+using MonoGameLibrary.Graphics;
+
 namespace MonoGameTemplate.ECS.Components
 {
-    public class SpriteComponent
+    public class SpriteComponent : IComponent
     {
         public AnimatedSprite Sprite;
 

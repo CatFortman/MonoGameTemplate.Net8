@@ -1,3 +1,5 @@
+using Microsoft.Xna.Framework;
+
 namespace MonoGameTemplate.ECS.Components
 {
     public class VelocityComponent

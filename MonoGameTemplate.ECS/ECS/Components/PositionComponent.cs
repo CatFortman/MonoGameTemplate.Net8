@@ -1,4 +1,7 @@
-﻿namespace MonoGameTemplate.ECS.Components
+﻿using Microsoft.Xna.Framework;
+using MonoGameLibrary.Components;
+
+namespace MonoGameTemplate.ECS.Components
 {
     public class PositionComponent : IComponent
     {

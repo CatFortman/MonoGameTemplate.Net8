@@ -1,3 +1,9 @@
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using MonoGameLibrary;
+using MonoGameLibrary.Systems;
+using MonoGameTemplate.ECS.Components;
+
 namespace MonoGameTemplate.ECS.Systems
 {
     public class RenderSystem : IGameSystem

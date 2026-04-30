@@ -24,7 +24,7 @@ public class Core : Game
     /// <summary>
     /// Gets the graphics device used to create graphical resources and perform primitive rendering.
     /// </summary>
-    public static new GraphicsDevice Device { get; private set; }
+    public static GraphicsDevice Device { get; private set; }
 
     /// <summary>
     /// Gets the sprite batch used for all 2D rendering.
@@ -34,13 +34,18 @@ public class Core : Game
     /// <summary>
     /// Gets the content manager used to load global assets.
     /// </summary>
-    public static new ContentManager ContentManager { get; private set; }
+    public static ContentManager ContentManager { get; private set; }
 
 
     /// <summary>
     /// Gets a reference to the input management system.
     /// </summary>
     public static InputManager Input { get; private set; }
+
+    /// <summary>
+    /// Gets a reference to the game context which contains references to the graphics device, sprite batch, content manager, and input manager.
+    /// </summary>
+    public static GameContext Context { get; private set; }
 
     /// <summary>
     /// Gets or Sets a value that indicates if the game should exit when the esc key on the keyboard is pressed.

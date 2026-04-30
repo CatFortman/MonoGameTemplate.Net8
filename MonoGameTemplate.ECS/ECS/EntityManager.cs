@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+
 namespace MonoGameTemplate.ECS
 {
     public class EntityManager
@@ -12,5 +15,10 @@ namespace MonoGameTemplate.ECS
         }
 
         public IEnumerable<Entity> GetAll() => _entities;
+
+        internal void Clear()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

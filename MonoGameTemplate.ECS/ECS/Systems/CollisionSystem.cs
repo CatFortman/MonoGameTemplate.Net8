@@ -1,3 +1,9 @@
+using System;
+using Microsoft.Xna.Framework;
+using MonoGameLibrary;
+using MonoGameLibrary.Systems;
+using MonoGameTemplate.ECS.Components;
+
 namespace MonoGameTemplate.ECS.Systems
 {
     public class CollisionSystem : IGameSystem
