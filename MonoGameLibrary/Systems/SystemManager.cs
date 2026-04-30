@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
+namespace MonoGameLibrary.Systems.Interfaces;
+
 public class SystemManager
 {
     private readonly List<IGameSystem> _systems = new();

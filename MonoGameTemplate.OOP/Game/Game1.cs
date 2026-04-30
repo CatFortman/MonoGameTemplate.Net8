@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Graphics;
 using MonoGameLibrary.Input;
+using MonoGameLibrary.Models;
 
 namespace MonoGameTemplate.OOP.Game1;
 
