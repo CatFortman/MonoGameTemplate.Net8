@@ -9,8 +9,6 @@ namespace MonoGameTemplate.OOP.Game1;
 
 public class Game1 : Core
 {
-    private SceneManager _sceneManager;
-
     public Game1() : base("MonoGameTemplate.OOP", 1280, 720, false)
     {        
     }
@@ -19,17 +17,10 @@ public class Game1 : Core
     {
         base.Initialize();
 
-        var context = Core.Context;
-
-        if (context == null)
-            throw new InvalidOperationException("Core.Context is not initialized.");
-
-        _sceneManager = new SceneManager(Core.Context);
-
         IGameBootstrap bootstrap = new OopBootstrap();
 
-        _sceneManager.ChangeScene(
-            bootstrap.CreateInitialScene(context)
+        SceneManager.ChangeScene(
+            bootstrap.CreateInitialScene(Core.Context)
         );
     }
 

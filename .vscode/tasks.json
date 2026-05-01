@@ -20,6 +20,17 @@
         "${workspaceFolder}/MonoGameTemplate.ECS/MonoGameTemplate.ECS.csproj"
       ],
       "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "Open MGCB Editor (Content)",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "mgcb-editor",
+        "./Content/Content.mgcb"
+      ],
+      "problemMatcher": [],
+      "group": "build"
     }
   ]
 }
