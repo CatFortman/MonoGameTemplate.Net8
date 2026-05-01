@@ -28,6 +28,13 @@ public class RenderSystem : IGameSystem
             sprite.Sprite.Draw(context.SpriteBatch, position.Value);
         }
 
+        context.SpriteBatch.DrawString(
+                          scene.Font,
+                          "Use WASD or Arrow Keys to Move. Hold Space to Speed Up.",
+                          new Vector2(25, 25),
+                          Color.MonoGameOrange
+                      );
+                      
         context.SpriteBatch.End();
     }
 }

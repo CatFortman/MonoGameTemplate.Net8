@@ -1,6 +1,5 @@
 using Microsoft.Xna.Framework;
 using MonoGameLibrary;
-using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
 using MonoGameTemplate.ECS.Components;
@@ -9,14 +8,21 @@ namespace MonoGameTemplate.ECS.Systems;
 
 public class MovementSystem : IGameSystem
 {
+    private const float FRAME_COMPENSATION = 60f;
+
     public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        foreach (var entity in scene.Entities.Query<PositionComponent, VelocityComponent>(scene.ActiveEntities))
-        {
-            ref var position = ref scene.Entities.GetRef<PositionComponent>(entity.Id);
-            ref var velocity = ref scene.Entities.GetRef<VelocityComponent>(entity.Id);
+        float dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            position.Value += velocity.Value;
+        var entities = scene.Entities;
+
+        foreach (var entity in entities.Query<PositionComponent, VelocityComponent>(scene.ActiveEntities))
+        {
+            ref var position = ref entities.GetRef<PositionComponent>(entity.Id);
+            ref var velocity = ref entities.GetRef<VelocityComponent>(entity.Id);
+
+            // OOP-like feel preserved via compensation factor
+            position.Value += velocity.Value * dt * FRAME_COMPENSATION;
         }
     }
 
