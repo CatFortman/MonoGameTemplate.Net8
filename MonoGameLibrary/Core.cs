@@ -1,97 +1,40 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MonoGameLibrary;
 using MonoGameLibrary.Input;
-
-namespace MonoGameLibrary;
+using MonoGameLibrary.Scenes;
 
 public class Core : Game
 {
-    internal static Core s_instance;
+    public static Core Instance { get; private set; }
 
-    /// <summary>
-    /// Gets a reference to the Core instance.
-    /// </summary>
-    public static Core Instance => s_instance;
-
-    /// <summary>
-    /// Gets the graphics device manager to control the presentation of graphics.
-    /// </summary>
     public static GraphicsDeviceManager Graphics { get; private set; }
-
-    /// <summary>
-    /// Gets the graphics device used to create graphical resources and perform primitive rendering.
-    /// </summary>
     public static GraphicsDevice Device { get; private set; }
-
-    /// <summary>
-    /// Gets the sprite batch used for all 2D rendering.
-    /// </summary>
     public static SpriteBatch SpriteBatch { get; private set; }
-
-    /// <summary>
-    /// Gets the content manager used to load global assets.
-    /// </summary>
     public static ContentManager ContentManager { get; private set; }
-
-
-    /// <summary>
-    /// Gets a reference to the input management system.
-    /// </summary>
     public static InputManager Input { get; private set; }
 
-    /// <summary>
-    /// Gets a reference to the game context which contains references to the graphics device, sprite batch, content manager, and input manager.
-    /// </summary>
     public static GameContext Context { get; private set; }
+    public static SceneManager SceneManager { get; private set; }
 
-    /// <summary>
-    /// Gets or Sets a value that indicates if the game should exit when the esc key on the keyboard is pressed.
-    /// </summary>
-    public static bool ExitOnEscape { get; set; }
+    public bool ExitOnEscape { get; set; }
 
-    /// <summary>
-    /// Creates a new Core instance.
-    /// </summary>
-    /// <param name="title">The title to display in the title bar of the game window.</param>
-    /// <param name="width">The initial width, in pixels, of the game window.</param>
-    /// <param name="height">The initial height, in pixels, of the game window.</param>
-    /// <param name="fullScreen">Indicates if the game should start in fullscreen mode.</param>
     public Core(string title, int width, int height, bool fullScreen)
     {
-        // Ensure that multiple cores are not created.
-        if (s_instance != null)
-        {
-            throw new InvalidOperationException($"Only a single Core instance can be created");
-        }
+        Instance = this;
 
-        // Store reference to engine for global member access.
-        s_instance = this;
-
-        // Create a new graphics device manager.
         Graphics = new GraphicsDeviceManager(this);
 
-        // Set the graphics defaults.
         Graphics.PreferredBackBufferWidth = width;
         Graphics.PreferredBackBufferHeight = height;
         Graphics.IsFullScreen = fullScreen;
-
-        // Apply the graphic presentation changes.
         Graphics.ApplyChanges();
 
-        // Set the window title.
         Window.Title = title;
-
-        // Set the core's content manager to a reference of the base Game's
-        // content manager.
-        Content = base.Content;
-
-        // Set the root directory for content.
         Content.RootDirectory = "Content";
 
-        // Mouse is visible by default.
         IsMouseVisible = true;
     }
 
@@ -99,27 +42,41 @@ public class Core : Game
     {
         base.Initialize();
 
-        // Set the core's graphics device to a reference of the base Game's
-        // graphics device.
-        Device = base.GraphicsDevice;
-
-        // Create the sprite batch instance.
+        Device = GraphicsDevice;
         SpriteBatch = new SpriteBatch(Device);
-
-        // Create a new input manager.
         Input = new InputManager();
+
+        ContentManager = Content;
+
+        Context = new GameContext
+        {
+            GraphicsDevice = Device,
+            SpriteBatch = SpriteBatch,
+            Content = ContentManager,
+            Input = Input
+        };
+
+        SceneManager = new SceneManager(Context);
     }
 
     protected override void Update(GameTime gameTime)
     {
-        // Update the input manager.
         Input.Update(gameTime);
 
         if (ExitOnEscape && Input.Keyboard.IsKeyDown(Keys.Escape))
-        {
             Exit();
-        }
+
+        SceneManager.Update(Context, gameTime);
 
         base.Update(gameTime);
+    }
+
+    protected override void Draw(GameTime gameTime)
+    {
+        Device.Clear(Color.CornflowerBlue);
+
+        SceneManager.Draw(Context, gameTime);
+
+        base.Draw(gameTime);
     }
 }

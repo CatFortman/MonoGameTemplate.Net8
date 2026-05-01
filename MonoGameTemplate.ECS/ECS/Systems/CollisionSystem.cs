@@ -1,48 +1,93 @@
 using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using MonoGameLibrary;
-using MonoGameLibrary.Systems;
+using MonoGameLibrary.ECS;
+using MonoGameLibrary.ECS.Systems;
+using MonoGameLibrary.Scenes;
 using MonoGameTemplate.ECS.Components;
 
-namespace MonoGameTemplate.ECS.Systems
+namespace MonoGameTemplate.ECS.Systems;
+
+public class CollisionSystem : IGameSystem
 {
-    public class CollisionSystem : IGameSystem
+    public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        private readonly EntityManager _entities;
+        var entities = scene.Entities;
 
-        public CollisionSystem(EntityManager entities)
+        var query = scene.Entities.Query<PositionComponent, SpriteComponent>(scene.ActiveEntities);
+
+        var list = new List<Entity>(query);
+
+        for (int i = 0; i < list.Count; i++)
         {
-            _entities = entities;
-        }
+            var a = list[i];
 
-        public void Update(GameContext context, GameTime gameTime)
-        {
-            Entity player = null;
-            Entity bat = null;
+            var aPos = entities.Get<PositionComponent>(a.Id);
+            var aSprite = entities.Get<SpriteComponent>(a.Id);
 
-            foreach (var e in _entities.GetAll())
+            var aRect = new Rectangle(
+                (int)aPos.Value.X,
+                (int)aPos.Value.Y,
+                (int)aSprite.Sprite.Width,
+                (int)aSprite.Sprite.Height
+            );
+
+            for (int j = i + 1; j < list.Count; j++)
             {
-                if (e.Has<PlayerTag>()) player = e;
-                if (e.Has<BatTag>()) bat = e;
-            }
+                var b = list[j];
 
-            if (player == null || bat == null) return;
+                var bPos = entities.Get<PositionComponent>(b.Id);
+                var bSprite = entities.Get<SpriteComponent>(b.Id);
 
-            var pPos = player.Get<PositionComponent>();
-            var bPos = bat.Get<PositionComponent>();
-
-            float distance = Vector2.Distance(pPos.Position, bPos.Position);
-
-            if (distance < 40f)
-            {
-                // reposition bat randomly
-                bPos.Position = new Vector2(
-                    Random.Shared.Next(100, 1000),
-                    Random.Shared.Next(100, 600)
+                var bRect = new Rectangle(
+                    (int)bPos.Value.X,
+                    (int)bPos.Value.Y,
+                    (int)bSprite.Sprite.Width,
+                    (int)bSprite.Sprite.Height
                 );
+
+                if (aRect.Intersects(bRect))
+                {
+                    HandleCollision(a, b, scene);
+                }
             }
         }
-
-        public void Draw(GameContext context, GameTime gameTime) { }
     }
+
+    private void HandleCollision(Entity a, Entity b, IEcsScene scene)
+    {
+        var entities = scene.Entities;
+
+        bool aHasPlayer = a.Has<PlayerTag>() || b.Has<PlayerTag>();
+        bool aHasBat = a.Has<BatTag>() || b.Has<BatTag>();
+
+        // Example behavior: reset bat position on player collision
+        if (aHasPlayer && aHasBat)
+        {
+            var bat = a.Has<BatTag>() ? a : b;
+
+            ref var pos = ref entities.GetRef<PositionComponent>(bat.Id);
+
+            pos.Value = new Vector2(
+                Random.Shared.Next(100, 1000),
+                Random.Shared.Next(100, 600)
+            );
+
+            ref var vel = ref entities.GetRef<VelocityComponent>(bat.Id);
+            vel.Value = RandomDirection() * 3f;
+        }
+    }
+
+    private Vector2 RandomDirection()
+    {
+        float angle = (float)(Random.Shared.NextDouble() * Math.PI * 2);
+
+        return new Vector2(
+            (float)Math.Cos(angle),
+            (float)Math.Sin(angle)
+        );
+    }
+
+    public void Draw(GameContext context, GameTime gameTime, IEcsScene scene) { }
 }

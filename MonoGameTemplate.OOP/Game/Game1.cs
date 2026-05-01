@@ -1,6 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using MonoGameLibrary;
 using MonoGameLibrary.Bootstrap.Interfaces;
 using MonoGameLibrary.Scenes;
 using MonoGameTemplate.OOP.Bootstrap;
@@ -11,18 +11,20 @@ public class Game1 : Core
 {
     private SceneManager _sceneManager;
 
-    public Game1()
-        : base("Game", 1280, 720, false)
-    {
+    public Game1() : base("MonoGameTemplate.OOP", 1280, 720, false)
+    {        
     }
-
+    
     protected override void Initialize()
     {
         base.Initialize();
 
         var context = Core.Context;
 
-        _sceneManager = new SceneManager(context);
+        if (context == null)
+            throw new InvalidOperationException("Core.Context is not initialized.");
+
+        _sceneManager = new SceneManager(Core.Context);
 
         IGameBootstrap bootstrap = new OopBootstrap();
 
@@ -33,7 +35,7 @@ public class Game1 : Core
 
     protected override void Update(GameTime gameTime)
     {
-        _sceneManager.Update(gameTime);
+        _sceneManager.Update(Core.Context, gameTime);
 
         base.Update(gameTime);
     }
@@ -42,7 +44,7 @@ public class Game1 : Core
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _sceneManager.Draw(gameTime);
+        _sceneManager.Draw(Core.Context, gameTime);
 
         base.Draw(gameTime);
     }

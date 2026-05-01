@@ -1,0 +1,25 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build OOP",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/MonoGameTemplate.OOP/MonoGameTemplate.OOP.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    },
+    {
+      "label": "build ECS",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/MonoGameTemplate.ECS/MonoGameTemplate.ECS.csproj"
+      ],
+      "problemMatcher": "$msCompile"
+    }
+  ]
+}

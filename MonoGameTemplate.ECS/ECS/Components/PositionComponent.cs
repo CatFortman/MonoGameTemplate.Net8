@@ -1,15 +1,10 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGameLibrary.Components;
 
-namespace MonoGameTemplate.ECS.Components
-{
-    public class PositionComponent : IComponent
-    {
-        public Vector2 Position;
+namespace MonoGameTemplate.ECS.Components;
 
-        public PositionComponent(Vector2 position)
-        {
-            Position = position;
-        }
-    }
+public struct PositionComponent : IComponent
+{
+    public Vector2 Value;
 }
+

@@ -1,0 +1,25 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Run OOP Template",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build OOP",
+      "program": "${workspaceFolder}/MonoGameTemplate.OOP/bin/Debug/net8.0/MonoGameTemplate.OOP.dll",
+      "cwd": "${workspaceFolder}/MonoGameTemplate.OOP",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    },
+    {
+      "name": "Run ECS Template",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build ECS",
+      "program": "${workspaceFolder}/MonoGameTemplate.ECS/bin/Debug/net8.0/MonoGameTemplate.ECS.dll",
+      "cwd": "${workspaceFolder}/MonoGameTemplate.ECS",
+      "console": "internalConsole",
+      "stopAtEntry": false
+    }
+  ]
+}

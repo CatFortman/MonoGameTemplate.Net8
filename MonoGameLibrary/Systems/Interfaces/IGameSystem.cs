@@ -1,9 +1,0 @@
-using Microsoft.Xna.Framework;
-
-namespace MonoGameLibrary.Systems;
-
-public interface IGameSystem
-{
-    void Update(GameContext context, GameTime gameTime);
-    void Draw(GameContext context, GameTime gameTime);
-}

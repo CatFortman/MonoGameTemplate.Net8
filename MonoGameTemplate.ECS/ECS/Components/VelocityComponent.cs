@@ -1,14 +1,9 @@
 using Microsoft.Xna.Framework;
+using MonoGameLibrary.Components;
 
-namespace MonoGameTemplate.ECS.Components
+namespace MonoGameTemplate.ECS.Components;
+
+public struct VelocityComponent : IComponent
 {
-    public class VelocityComponent
-    {
-        public Vector2 Velocity;
-
-        public VelocityComponent(Vector2 velocity)
-        {
-            Velocity = velocity;
-        }
-    }
+    public Vector2 Value;
 }

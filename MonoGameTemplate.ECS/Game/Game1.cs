@@ -4,7 +4,6 @@ using MonoGameLibrary;
 using MonoGameLibrary.Bootstrap.Interfaces;
 using MonoGameLibrary.Scenes;
 using MonoGameTemplate.ECS.Bootstrap;
-using MonoGameTemplate.ECS.Scenes;
 
 namespace MonoGameTemplate.ECS.Game1;
 
@@ -13,7 +12,7 @@ public class Game1 : Core
     private SceneManager _sceneManager;
 
     public Game1()
-        : base("Game", 1280, 720, false)
+        : base("MonoGameTemplate.ECS", 1280, 720, false)
     {
     }
 
@@ -21,29 +20,25 @@ public class Game1 : Core
     {
         base.Initialize();
 
-        var context = Core.Context;
-
-        _sceneManager = new SceneManager(context);
+        _sceneManager = new SceneManager(Core.Context);
 
         IGameBootstrap bootstrap = new EcsBootstrap();
 
         _sceneManager.ChangeScene(
-            bootstrap.CreateInitialScene(context)
+            bootstrap.CreateInitialScene(Core.Context)
         );
     }
 
     protected override void Update(GameTime gameTime)
     {
-        _sceneManager.Update(gameTime);
-
-        base.Update(gameTime);
+        _sceneManager.Update(Core.Context, gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        _sceneManager.Draw(gameTime);
+        _sceneManager.Draw(Core.Context, gameTime);
 
         base.Draw(gameTime);
     }

@@ -4,31 +4,34 @@ namespace MonoGameLibrary.Scenes;
 
 public class SceneManager
 {
-    private IScene _currentScene;
-
+    private IScene _current;
     private readonly GameContext _context;
+
+    public IScene CurrentScene => _current;
 
     public SceneManager(GameContext context)
     {
         _context = context;
     }
 
-    public void ChangeScene(IScene newScene)
+    public void ChangeScene(IScene scene)
     {
-        _currentScene?.Unload();
+        _current?.OnExit();
+        _current?.Unload();
 
-        _currentScene = newScene;
+        _current = scene;
 
-        _currentScene.Load(_context);
+        _current.Load(_context);
+        _current.OnEnter();
     }
 
-    public void Update(GameTime gameTime)
+    public void Update(GameContext context, GameTime gameTime)
     {
-        _currentScene?.Update(_context, gameTime);
+        _current?.Update(context, gameTime);
     }
 
-    public void Draw(GameTime gameTime)
+    public void Draw(GameContext context, GameTime gameTime)
     {
-        _currentScene?.Draw(_context, gameTime);
+        _current?.Draw(context, gameTime);
     }
 }

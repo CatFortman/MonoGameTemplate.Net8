@@ -1,33 +1,23 @@
 using Microsoft.Xna.Framework;
 using MonoGameLibrary;
-using MonoGameLibrary.Systems;
+using MonoGameLibrary.ECS.Systems;
+using MonoGameLibrary.Scenes;
 using MonoGameTemplate.ECS.Components;
 
-namespace MonoGameTemplate.ECS.Systems
+namespace MonoGameTemplate.ECS.Systems;
+
+public class VelocitySystem : IGameSystem
 {
-    public class VelocitySystem : IGameSystem
+    public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        private readonly EntityManager _entities;
-
-        public VelocitySystem(EntityManager entities)
+        foreach (var entity in scene.Entities.Query<PositionComponent, VelocityComponent>(scene.ActiveEntities))
         {
-            _entities = entities;
+            ref var position = ref scene.Entities.GetRef<PositionComponent>(entity.Id);
+            ref var velocity = ref scene.Entities.GetRef<VelocityComponent>(entity.Id);
+
+            position.Value += velocity.Value;
         }
-
-        public void Update(GameContext context, GameTime gameTime)
-        {
-            foreach (var entity in _entities.GetAll())
-            {
-                if (!entity.Has<PositionComponent>() || !entity.Has<VelocityComponent>())
-                    continue;
-
-                var pos = entity.Get<PositionComponent>();
-                var vel = entity.Get<VelocityComponent>();
-
-                pos.Position += vel.Velocity;
-            }
-        }
-
-        public void Draw(GameContext context, GameTime gameTime) { }
     }
+
+    public void Draw(GameContext context, GameTime gameTime, IEcsScene scene) { }
 }

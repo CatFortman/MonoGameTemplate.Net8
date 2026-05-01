@@ -1,47 +1,33 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary;
-using MonoGameLibrary.Systems;
+using MonoGameLibrary.ECS.Systems;
+using MonoGameLibrary.Scenes;
 using MonoGameTemplate.ECS.Components;
 
-namespace MonoGameTemplate.ECS.Systems
+namespace MonoGameTemplate.ECS.Systems;
+
+public class RenderSystem : IGameSystem
 {
-    public class RenderSystem : IGameSystem
+    public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        private readonly EntityManager _entities;
+        // rendering systems do nothing in update
+    }
 
-        public RenderSystem(EntityManager entities)
+    public void Draw(GameContext context, GameTime gameTime, IEcsScene scene)
+    {
+        var entities = scene.Entities;
+
+        context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
+        foreach (var entity in entities.Query<PositionComponent, SpriteComponent>(scene.ActiveEntities))
         {
-            _entities = entities;
+            var position = entities.Get<PositionComponent>(entity.Id);
+            var sprite = entities.Get<SpriteComponent>(entity.Id);
+
+            sprite.Sprite.Draw(context.SpriteBatch, position.Value);
         }
 
-        public void Update(GameContext context, GameTime gameTime)
-        {
-            foreach (var entity in _entities.GetAll())
-            {
-                if (entity.Has<SpriteComponent>())
-                {
-                    entity.Get<SpriteComponent>().Sprite.Update(gameTime);
-                }
-            }
-        }
-
-        public void Draw(GameContext context, GameTime gameTime)
-        {
-            context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
-            foreach (var entity in _entities.GetAll())
-            {
-                if (!entity.Has<SpriteComponent>() || !entity.Has<PositionComponent>())
-                    continue;
-
-                var sprite = entity.Get<SpriteComponent>().Sprite;
-                var pos = entity.Get<PositionComponent>().Position;
-
-                sprite.Draw(context.SpriteBatch, pos);
-            }
-
-            context.SpriteBatch.End();
-        }
+        context.SpriteBatch.End();
     }
 }
