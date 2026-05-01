@@ -186,4 +186,9 @@ public class EntityManager
 
         return (ComponentStore<T>)store;
     }
+
+    public void Clear()
+    {
+        throw new NotImplementedException();
+    }
 }
