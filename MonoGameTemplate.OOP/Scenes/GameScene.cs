@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Graphics;
-using MonoGameLibrary.Input;
-using MonoGameLibrary.Models;
 using MonoGameLibrary.Scenes;
 
 namespace MonoGameTemplate.OOP.Scenes;
@@ -95,10 +93,14 @@ public class GameScene : IScene
     // ---------------- DRAW (render only) ----------------
     public void Draw(GameContext context, GameTime gameTime)
     {
-        context.GraphicsDevice.Clear(Color.MonoGameOrange);
-
+            System.Diagnostics.Debug.WriteLine("DRAW CALLED");
         context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
-
+        context.SpriteBatch.DrawString(
+                    context.Content.Load<SpriteFont>("Fonts/Default"),
+                    "Use WASD or Arrow Keys to Move. Hold Space to Speed Up.",
+                    new Vector2(10, 10),
+                    Color.White
+                );
         _tilemap.Draw(context.SpriteBatch);
         _slime.Draw(context.SpriteBatch, _slimePosition);
         _bat.Draw(context.SpriteBatch, _batPosition);

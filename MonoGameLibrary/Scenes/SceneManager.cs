@@ -11,7 +11,7 @@ public class SceneManager
 
     public SceneManager(GameContext context)
     {
-        _context = context;
+        _context = context;        
     }
 
     public void ChangeScene(IScene scene)
@@ -25,13 +25,13 @@ public class SceneManager
         _current.OnEnter();
     }
 
-    public void Update(GameContext context, GameTime gameTime)
+    public void Update(GameTime gameTime)
     {
-        _current?.Update(context, gameTime);
+        _current?.Update(_context, gameTime);
     }
 
-    public void Draw(GameContext context, GameTime gameTime)
+    public void Draw(GameTime gameTime)
     {
-        _current?.Draw(context, gameTime);
+        _current?.Draw(_context, gameTime);
     }
 }

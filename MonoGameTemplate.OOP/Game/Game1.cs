@@ -35,17 +35,11 @@ public class Game1 : Core
 
     protected override void Update(GameTime gameTime)
     {
-        _sceneManager.Update(Core.Context, gameTime);
-
         base.Update(gameTime);
     }
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
-
-        _sceneManager.Draw(Core.Context, gameTime);
-
         base.Draw(gameTime);
     }
 }
