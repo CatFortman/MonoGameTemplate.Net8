@@ -1,5 +1,5 @@
 namespace MonoGameTemplate.ECS.Components
 {
     public class PlayerTag { }
-    public class BatTag { }
+    public class EnemyTag { }
 }

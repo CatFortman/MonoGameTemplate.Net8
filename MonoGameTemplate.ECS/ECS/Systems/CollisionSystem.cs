@@ -60,12 +60,12 @@ public class CollisionSystem : IGameSystem
         var entities = scene.Entities;
 
         bool aHasPlayer = a.Has<PlayerTag>() || b.Has<PlayerTag>();
-        bool aHasBat = a.Has<BatTag>() || b.Has<BatTag>();
+        bool aHasBat = a.Has<EnemyTag>() || b.Has<EnemyTag>();
 
         // Example behavior: reset bat position on player collision
         if (aHasPlayer && aHasBat)
         {
-            var bat = a.Has<BatTag>() ? a : b;
+            var bat = a.Has<EnemyTag>() ? a : b;
 
             ref var pos = ref entities.GetRef<PositionComponent>(bat.Id);
 

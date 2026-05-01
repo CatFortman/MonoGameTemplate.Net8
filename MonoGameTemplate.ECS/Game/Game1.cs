@@ -17,10 +17,8 @@ public class Game1 : Core
 
         IGameBootstrap bootstrap = new EcsBootstrap();
 
-        var context = Core.Context;
-
         Core.SceneManager.ChangeScene(
-            bootstrap.CreateInitialScene(context)
+            bootstrap.CreateInitialScene(Core.Context)
         );
     }
 

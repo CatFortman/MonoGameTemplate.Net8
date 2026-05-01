@@ -43,7 +43,7 @@ public class GameScene : IEcsScene
         bat.Add(new VelocityComponent { Value = RandomDirection() * 3f });
         bat.Add(new SpriteComponent { Sprite = atlas.CreateAnimatedSprite("bat-animation") });
         bat.Add(new BounceComponent());
-        bat.Add(new BatTag());
+        bat.Add(new EnemyTag());
     }
 
     public void Update(GameContext context, GameTime gameTime)

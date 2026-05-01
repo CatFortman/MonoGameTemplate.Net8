@@ -6,29 +6,37 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.Graphics;
+using MonoGameLibrary.Models;
 using MonoGameLibrary.Scenes;
 
 namespace MonoGameTemplate.OOP.Scenes;
 
 public class GameScene : IScene
 {
+    // Slime controlled by player, moves with WASD or Arrow Keys
     private AnimatedSprite _slime;
     private Vector2 _slimePosition;
-
+    private Circle _slimeBounds;
+    // Bat that bounces around the room, player must avoid it
     private AnimatedSprite _bat;
     private Vector2 _batPosition;
     private Vector2 _batVelocity;
 
-    private const float MOVEMENT_SPEED = 3f;
+    // Speed at which the slime moves
+    private const float MOVEMENT_SPEED = 2f;
 
+    // Tilemap for the room, defines the boundaries and background
     private Tilemap _tilemap;
     private Rectangle _roomBounds;
 
+    // Sound effects for bouncing and collecting
     private SoundEffect _bounceSoundEffect;
     private SoundEffect _collectSoundEffect;
 
+    // Background music for the scene
     private Song _theme;
 
+    // Reference to the game context for accessing content, scene, etc.
     private GameContext _context;
 
     // ---------------- LOAD (once) ----------------
@@ -52,6 +60,9 @@ public class GameScene : IScene
 
         _slime = atlas.CreateAnimatedSprite("slime-animation");
         _bat = atlas.CreateAnimatedSprite("bat-animation");
+
+        _slime.Scale = new Vector2(4.0f, 4.0f);
+        _bat.Scale = new Vector2(4.0f, 4.0f);
 
         _bounceSoundEffect = context.Content.Load<SoundEffect>("Audio/bounce");
         _collectSoundEffect = context.Content.Load<SoundEffect>("Audio/collect");
@@ -93,14 +104,15 @@ public class GameScene : IScene
     // ---------------- DRAW (render only) ----------------
     public void Draw(GameContext context, GameTime gameTime)
     {
-            System.Diagnostics.Debug.WriteLine("DRAW CALLED");
         context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+
         context.SpriteBatch.DrawString(
-                    context.Content.Load<SpriteFont>("Fonts/Default"),
+                    context.Content.Load<SpriteFont>("Fonts/default"),
                     "Use WASD or Arrow Keys to Move. Hold Space to Speed Up.",
                     new Vector2(10, 10),
-                    Color.White
+                    Color.MonoGameOrange
                 );
+                
         _tilemap.Draw(context.SpriteBatch);
         _slime.Draw(context.SpriteBatch, _slimePosition);
         _bat.Draw(context.SpriteBatch, _batPosition);
@@ -122,6 +134,34 @@ public class GameScene : IScene
         if (k.IsKeyDown(Keys.S) || k.IsKeyDown(Keys.Down)) _slimePosition.Y += speed;
         if (k.IsKeyDown(Keys.A) || k.IsKeyDown(Keys.Left)) _slimePosition.X -= speed;
         if (k.IsKeyDown(Keys.D) || k.IsKeyDown(Keys.Right)) _slimePosition.X += speed;
+
+        // Creating a bounding circle for the slime
+        _slimeBounds = new Circle(
+            (int)(_slimePosition.X + (_slime.Width * 0.5f)),
+            (int)(_slimePosition.Y + (_slime.Height * 0.5f)),
+            (int)(_slime.Width * 0.5f)
+        );
+
+        // Use distance based checks to determine if the slime is within the
+        // bounds of the game screen, and if it is outside that screen edge,
+        // move it back inside.
+        if (_slimeBounds.Left < _roomBounds.Left)
+        {
+            _slimePosition.X = _roomBounds.Left;
+        }
+        else if (_slimeBounds.Right > _roomBounds.Right)
+        {
+            _slimePosition.X = _roomBounds.Right - _slime.Width;
+        }
+
+        if (_slimeBounds.Top < _roomBounds.Top)
+        {
+            _slimePosition.Y = _roomBounds.Top;
+        }
+        else if (_slimeBounds.Bottom > _roomBounds.Bottom)
+        {
+            _slimePosition.Y = _roomBounds.Bottom - _slime.Height;
+        }
     }
 
     // ---------------- BAT LOGIC ----------------
