@@ -36,6 +36,10 @@ public class GameScene : IScene
     // Background music for the scene
     private Song _theme;
 
+    // Font for displaying instructions
+    private SpriteFont _font;
+
+
     // Reference to the game context for accessing content, scene, etc.
     private GameContext _context;
 
@@ -43,6 +47,8 @@ public class GameScene : IScene
     public void Load(GameContext context)
     {
         _context = context;
+
+        _font = context.Content.Load<SpriteFont>("Fonts/default");
 
         var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
 
@@ -106,16 +112,16 @@ public class GameScene : IScene
     {
         context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        context.SpriteBatch.DrawString(
-                    context.Content.Load<SpriteFont>("Fonts/default"),
-                    "Use WASD or Arrow Keys to Move. Hold Space to Speed Up.",
-                    new Vector2(10, 10),
-                    Color.MonoGameOrange
-                );
-                
         _tilemap.Draw(context.SpriteBatch);
         _slime.Draw(context.SpriteBatch, _slimePosition);
         _bat.Draw(context.SpriteBatch, _batPosition);
+
+        context.SpriteBatch.DrawString(
+                    _font,
+                    "Use WASD or Arrow Keys to Move. Hold Space to Speed Up.",
+                    new Vector2(25, 25),
+                    Color.MonoGameOrange
+                );
 
         context.SpriteBatch.End();
     }
