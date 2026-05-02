@@ -1,3 +1,4 @@
+using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary;
@@ -16,9 +17,8 @@ public class RenderSystem : IGameSystem
 
     public void Draw(GameContext context, GameTime gameTime, IEcsScene scene)
     {
+        Console.WriteLine("RenderSystem.Draw called");
         var entities = scene.Entities;
-
-        context.SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
         foreach (var entity in entities.Query<PositionComponent, SpriteComponent>(scene.ActiveEntities))
         {
@@ -34,7 +34,5 @@ public class RenderSystem : IGameSystem
                           new Vector2(25, 25),
                           Color.MonoGameOrange
                       );
-                      
-        context.SpriteBatch.End();
     }
 }

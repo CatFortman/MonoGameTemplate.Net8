@@ -50,8 +50,6 @@ public class GameScene : IScene
 
         _font = context.Content.Load<SpriteFont>("Fonts/default");
 
-        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
-
         _tilemap = Tilemap.FromFile(context.Content, "tilemap-definition.xml");
         _tilemap.Scale = new Vector2(4f, 4f);
 
@@ -63,6 +61,8 @@ public class GameScene : IScene
             screenBounds.Width - (int)_tilemap.TileWidth * 2,
             screenBounds.Height - (int)_tilemap.TileHeight * 2
         );
+
+        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
 
         _slime = atlas.CreateAnimatedSprite("slime-animation");
         _bat = atlas.CreateAnimatedSprite("bat-animation");

@@ -13,7 +13,7 @@ public class BounceSystem : IGameSystem
         var bounds = context.GraphicsDevice.Viewport.Bounds;
         var entities = scene.Entities;
 
-        foreach (var entity in entities.Query<PositionComponent, VelocityComponent, SpriteComponent>(scene.ActiveEntities))
+        foreach (var entity in entities.Query<BounceComponent, PositionComponent, VelocityComponent, SpriteComponent>(scene.ActiveEntities))
         {
             ref var position = ref entities.GetRef<PositionComponent>(entity.Id);
             ref var velocity = ref entities.GetRef<VelocityComponent>(entity.Id);
@@ -50,7 +50,7 @@ public class BounceSystem : IGameSystem
             }
 
             // Play sound ONLY if bounce occurred
-            if (bounced && entity.Has<BounceSoundComponent>())
+            if (bounced)
             {
                 var sound = entities.Get<BounceSoundComponent>(entity.Id);
                 sound.Sound.Play();
