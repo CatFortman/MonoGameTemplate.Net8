@@ -6,6 +6,7 @@ using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
 using MonoGameTemplate.ECS.Components;
+using MonoGameTemplate.ECS.Scenes;
 
 namespace MonoGameTemplate.ECS.Systems;
 

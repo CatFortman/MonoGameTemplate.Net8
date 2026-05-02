@@ -11,26 +11,28 @@ namespace MonoGameTemplate.ECS.Systems;
 
 public class GameSystem : IGameSystem
 {
+
     public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        var entities = scene.Entities;
-
-        foreach (var (a, b) in ((GameScene)scene).CollisionEvents)
+        if (scene is ICollisionEventScene eventScene)
         {
-            if (a.Has<PlayerTag>() && b.Has<EnemyTag>())
+            foreach (var (a, b) in eventScene.CollisionEvents)
             {
-                HandlePlayerEnemy(a, b, scene);
+                if (a.Has<PlayerTag>() && b.Has<EnemyTag>())
+                {
+                    HandlePlayerEnemyCollision(a, b, scene);
+                }
+                else if (b.Has<PlayerTag>() && a.Has<EnemyTag>())
+                {
+                    HandlePlayerEnemyCollision(b, a, scene);
+                }
             }
-            else if (b.Has<PlayerTag>() && a.Has<EnemyTag>())
-            {
-                HandlePlayerEnemy(b, a, scene);
-            }
-        }
 
-        ((GameScene)scene).CollisionEvents.Clear();
+            eventScene.CollisionEvents.Clear();
+        }
     }
 
-    private void HandlePlayerEnemy(Entity player, Entity enemy, IEcsScene scene)
+    private void HandlePlayerEnemyCollision(Entity player, Entity enemy, IEcsScene scene)
     {
         var entities = scene.Entities;
 
@@ -63,5 +65,8 @@ public class GameSystem : IGameSystem
         );
     }
 
-    public void Draw(GameContext context, GameTime gameTime, IEcsScene scene) { }
+
+    public void Draw(GameContext context, GameTime gameTime, IEcsScene scene)
+    {
+    }
 }

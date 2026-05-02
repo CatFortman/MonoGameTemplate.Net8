@@ -13,7 +13,7 @@ using MonoGameTemplate.ECS.Systems;
 
 namespace MonoGameTemplate.ECS.Scenes;
 
-public class GameScene : IEcsScene
+public class GameScene : IEcsScene, ICollisionEventScene
 {
     private EntityManager _entities;
     private SystemManager _systems;
@@ -35,6 +35,7 @@ public class GameScene : IEcsScene
         _systems.Add(new WorldBoundsSystem(screenBounds));
         _systems.Add(new BounceSystem());
         _systems.Add(new CollisionSystem());
+        _systems.Add(new GameSystem()); 
         _systems.Add(new SpriteUpdateSystem());
         _systems.Add(new RenderSystem());
 
