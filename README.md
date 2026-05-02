@@ -1,26 +1,125 @@
 # MonoGameTemplate.Net8
 
-A reusable starter template for building 2D desktop games with MonoGame and .NET 8. Provides reusable engine components and services while remainig architecture-agnostic.
+A reusable starter template for building 2D desktop games with MonoGame and .NET 8. Provides reusable engine components and services while remaining architecture-agnostic.
 
 This project provides a clean, modern foundation for creating MonoGame projects using the DesktopGL framework, with support for content management, reusable shared libraries, and preconfigured assets.
 
-**Purpose:**
+---
+
+## Purpose
+
 Provides reusable engine components and services. Architecture-agnostic.
 
-**Includes:**
+---
 
-- `Core` → Game lifecycle, initialization
-- `GameContext` → Shared runtime services (GraphicsDevice, SpriteBatch, Input, Content)
-- `Graphics/` → Rendering primitives (Sprite, AnimatedSprite, Tilemap, etc.)
-- `Input/` → Input abstraction (Keyboard, Mouse, GamePad)
-- `Models/` → Math/collision helpers (Circle, etc.)
+## Core Features (High Level)
 
-**Used by:**
+- Built on **.NET 8**
+- Uses **MonoGame 3.8 DesktopGL**
+- Clean separation between engine library and game projects
+- Shared reusable game framework (`MonoGameLibrary`)
+- Content Pipeline integration (`.mgcb`)
+- Input abstraction layer (keyboard, mouse, gamepad)
+- 2D rendering utilities (sprites, animation, tilemaps)
+- Lightweight scene system (OOP + ECS support)
+- Audio support (SFX + music via MonoGame MediaPlayer)
+- Ready-to-run game architecture
 
-- OOP Template ✅
-- ECS Template ✅
+---
 
-**Mapping: Who Uses What**
+## Project Breakdown
+
+### 🧱 MonoGameLibrary (Engine Core)
+
+This is the reusable “engine layer” used by both OOP and ECS templates.
+
+#### Features
+
+- Game lifecycle abstraction (`GameContext`)
+- Graphics abstraction (`SpriteBatch`, rendering helpers)
+- Input system abstraction (keyboard, mouse, gamepad)
+- Scene management foundation (`Scene`, `IEcsScene`)
+- Sprite system:
+  - Static sprites
+  - Animated sprites
+- Tilemap rendering system
+- Basic collision primitives (Circle, Rectangle helpers)
+- ECS foundation (EntityManager, SystemManager, components)
+
+#### Used by
+
+- OOP Template ✔
+- ECS Template ✔
+
+---
+
+### 🎮 MonoGameTemplate.OOP (Object-Oriented Template)
+
+A traditional game architecture using scene-based OOP design.
+
+#### Features
+
+- Scene-driven architecture (`IScene`)
+- Direct entity/state management
+- Manual game loop logic per scene
+- Built-in support for:
+  - Sprite animation
+  - Tilemaps
+  - Input handling (WASD / Arrow keys)
+  - Sound effects
+  - Background music
+- Simple collision handling (rectangle & circle-based)
+- Immediate feedback loop design (ideal for prototyping)
+
+#### Best suited for
+
+- Game jams
+- Small to medium 2D games
+- Rapid prototyping
+- Learning MonoGame fundamentals
+
+---
+
+### ⚙️ MonoGameTemplate.ECS (Entity Component System Template)
+
+A data-driven architecture using ECS principles.
+
+#### Features
+
+- Entity Component System (ECS) architecture
+- Component-based design:
+  - Position / Velocity
+  - Sprite / Bounds
+  - Tags (Player, Enemy)
+  - Audio components (SoundEffect-based)
+- System-driven logic:
+  - InputSystem
+  - MovementSystem
+  - BounceSystem
+  - CollisionSystem (event-based optional mode)
+  - RenderSystem
+- World bounds constraint system
+- Collision event pipeline (`ICollisionEventScene`)
+- Decoupled gameplay logic via systems
+- Scalable architecture for complex simulations
+
+#### Key ECS advantages
+
+- Separation of data and behaviour
+- Highly reusable systems
+- Easier scaling for large entity counts
+- Clear gameplay pipeline (Input → Movement → Physics → Collision → Render)
+
+#### Best suited for
+
+- Simulation-heavy games
+- Large-scale entity systems
+- Long-term scalable projects
+- Experimentation with engine architecture
+
+---
+
+## Mapping: Who Uses What
 
 | Component     | OOP Template | ECS Template |
 | ------------- | ------------ | ------------ |
@@ -29,22 +128,12 @@ Provides reusable engine components and services. Architecture-agnostic.
 | Graphics      | Yes          | Yes          |
 | Input         | Yes          | Yes          |
 | Models        | Yes          | Yes          |
+| Scene System  | Yes          | Yes (ECS version) |
 | IGameSystem   | No           | Yes          |
 | SystemManager | No           | Yes          |
 | EntityManager | Optional     | Yes          |
 
-
-## Features
-
-- Built on **.NET 8**
-- Uses **MonoGame 3.8 DesktopGL**
-- Includes **MonoGame Content Pipeline** support
-- Separate reusable **class library** for shared game logic
-- Preconfigured application icon and manifest
-- Supports audio asset organization
-- Ready-to-run starter architecture for 2D games
-
-
+---
 
 ## Solution Structure
 
@@ -52,47 +141,43 @@ Provides reusable engine components and services. Architecture-agnostic.
 MonoGameTemplate.Net8/
 │
 ├── MonoGameLibrary/
-│   ├── Graphics
-│   ├── Inputs
-│   ├── Models
-│   ├── Systems
+│   ├── Bootstrap/
+│   ├── Graphics/
+│   ├── Input/
+│   ├── Models/
+│   ├── ECS/
+│   ├── Scenes/
+│   ├── Core.cs
 │   ├── GameContext.cs
 │   └── MonoGameLibrary.csproj
 │
 ├── MonoGameTemplate.OOP/
-│   ├── MonoGameTemplate.OOP.csproj
 │   ├── Content/
 │   │   ├── Audio/
+│   │   ├── Fonts/
+│   │   ├── Maps/
 │   │   └── Content.mgcb
-│   ├── app.manifest
-│   ├── Icon.ico
-│   ├── Icon.bmp
-│   └── Main game entry point
+│   ├── Scenes/
+│   ├── Game/
+│   │   └──  GameScene.cs
+│   └── MonoGameTemplate.OOP.csproj
+│
+├── MonoGameTemplate.ECS/
+│   ├── Content/
+│   │   ├── Audio/
+│   │   ├── Fonts/
+│   │   ├── Maps/
+│   │   └── Content.mgcb
+│   ├── Scenes/
+│   ├── ECS/
+│   │   ├── Systems/
+│   │   └── Components/
+│   ├── Game/
+│   │   └──  GameScene.cs
+│   └── MonoGameTemplate.ECS.csproj
 │
 └── MonoGameTemplate.sln
 ```
-
-## Technologies Used
-- .NET 8
-- MonoGame Framework DesktopGL
-- MonoGame Content Builder
-- OpenGL
-
-## Purpose
-
-This template was created to speed up development of future MonoGame-based projects by providing:
-
-- a reusable architecture
-- preconfigured tooling
-- content pipeline support
-
-It can be used as the starting point for:
-
-- 2D platformers
-- RPGs
-- simulation games
-- top-down exploration games
-- pixel-art adventure games
 
 ## Getting Started
 
@@ -108,6 +193,18 @@ Install the following:
 
 ```
 git clone https://github.com/CatFortman/MonoGameTemplate.Net8.git
+```
+
+### Select Entry Project
+
+```
+cd MonoGameTemplate.OOP     
+```
+
+or
+
+```
+cd MonoGameTemplate.ECS     
 ```
 
 ### Restore Dependencies
@@ -131,7 +228,7 @@ dotnet build
 ### Run the Project
 
 ```
-dotnet run --project MonoGameTemplate.OOP
+dotnet run
 ```
 
 ## Content Pipeline
@@ -151,39 +248,13 @@ Content/
 Assets can be managed via:
 
 ```
-mgcb-editor
+dotnet mgcb-editor ./Content/Content.mgcb
 ```
-
-## Architecture
-
-The solution separates concerns into two projects:
-
-### MonoGameTemplate
-
-Contains:
-
-- application startup
-- rendering loop
-- asset loading
-- input handling
-- game initialization
-
-### MonoGameLibrary
-
-Contains reusable systems such as:
-
-- entity management
-- scene/state management
-- helper utilities
-- shared game components
 
 ## Future Improvements
 
 Potential additions:
 
-- Scene manager
-- Entity Component System (ECS)
-- Tilemap support
 - Animation system
 - Audio manager
 - Shader/effects support
@@ -193,3 +264,5 @@ Potential additions:
 ## Acknowledgements
 
 This project was initially inspired by and partially derived from the official MonoGame 2D tutorial series, then extended into a reusable starter template.
+
+Credit is also due to [u/JustARandomDude112](https://www.reddit.com/user/JustARandomDude112/) for architectural ideas and design discussions that helped shape parts of this framework.
