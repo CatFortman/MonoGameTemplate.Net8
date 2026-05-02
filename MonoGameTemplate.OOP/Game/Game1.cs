@@ -1,9 +1,7 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
 using MonoGameLibrary.Bootstrap.Interfaces;
 using MonoGameLibrary.Scenes;
-using MonoGameTemplate.OOP.Bootstrap;
+using MonoGameTemplate.OOP.Game.Bootstrap;
 
 namespace MonoGameTemplate.OOP.Game1;
 

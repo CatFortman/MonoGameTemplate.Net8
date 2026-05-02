@@ -263,6 +263,8 @@ Potential additions:
 
 ## Acknowledgements
 
-This project was initially inspired by and partially derived from the official MonoGame 2D tutorial series, then extended into a reusable starter template.
+Portions of this project were derived from work in the MonoGame [tutorial](https://docs.monogame.net/articles/tutorials/building_2d_games/) series created by [Aristurtle](https://github.com/AristurtleDev).
+
+The structure of the engine and several foundational concepts were derived from that tutorial and adapted into a reusable .NET 8 template.
 
 Credit is also due to [u/JustARandomDude112](https://www.reddit.com/user/JustARandomDude112/) for architectural ideas and design discussions that helped shape parts of this framework.

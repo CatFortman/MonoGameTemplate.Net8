@@ -17,7 +17,6 @@ public class RenderSystem : IGameSystem
 
     public void Draw(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        Console.WriteLine("RenderSystem.Draw called");
         var entities = scene.Entities;
 
         foreach (var entity in entities.Query<PositionComponent, SpriteComponent>(scene.ActiveEntities))
