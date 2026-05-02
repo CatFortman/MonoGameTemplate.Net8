@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
@@ -22,9 +23,12 @@ public class GameScene : IEcsScene, ICollisionEventScene, IWorldBoundsProvider
     public List<(Entity A, Entity B)> CollisionEvents { get; } = new();
     public Rectangle WorldBounds { get; private set; }
     private Tilemap _tilemap;
+    private Song _theme;
 
     public void Load(GameContext context)
     {
+        _theme = context.Content.Load<Song>("Audio/theme");
+
         _tilemap = Tilemap.FromFile(context.Content, "tilemap-definition.xml");
         _tilemap.Scale = new Vector2(4f, 4f);
 
@@ -136,8 +140,23 @@ public class GameScene : IEcsScene, ICollisionEventScene, IWorldBoundsProvider
         _entities.Clear();
     }
 
-    public void OnEnter() { }
-    public void OnExit() { }
+    public void OnEnter()
+    {
+        if (MediaPlayer.State == MediaState.Paused)
+        {
+            MediaPlayer.Resume();
+        }
+        else
+        {
+            MediaPlayer.Play(_theme);
+            MediaPlayer.IsRepeating = true;
+        }
+    }
+    public void OnExit()
+    {
+        if (MediaPlayer.State == MediaState.Playing)
+            MediaPlayer.Pause();
+    }
 
     private Vector2 RandomDirection()
     {
