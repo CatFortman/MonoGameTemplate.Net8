@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/MonoGameTemplate.OOP/MonoGameTemplate.OOP.csproj"
+        "${workspaceFolder}/MonoGameEntry.OOP/MonoGameEntry.OOP.csproj"
       ],
       "problemMatcher": "$msCompile"
     },
@@ -17,7 +17,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/MonoGameTemplate.ECS/MonoGameTemplate.ECS.csproj"
+        "${workspaceFolder}/MonoGameEntry.ECS/MonoGameEntry.ECS.csproj"
       ],
       "problemMatcher": "$msCompile"
     },

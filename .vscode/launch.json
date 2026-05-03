@@ -2,22 +2,22 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Run OOP Template",
+      "name": "Run OOP Entry",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build OOP",
-      "program": "${workspaceFolder}/MonoGameTemplate.OOP/bin/Debug/net8.0/MonoGameTemplate.OOP.dll",
-      "cwd": "${workspaceFolder}/MonoGameTemplate.OOP",
+      "program": "${workspaceFolder}/MonoGameEntry.OOP/bin/Debug/net8.0/MonoGameEntry.OOP.dll",
+      "cwd": "${workspaceFolder}/MonoGameEntry.OOP",
       "console": "internalConsole",
       "stopAtEntry": false
     },
     {
-      "name": "Run ECS Template",
+      "name": "Run ECS Entry",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build ECS",
-      "program": "${workspaceFolder}/MonoGameTemplate.ECS/bin/Debug/net8.0/MonoGameTemplate.ECS.dll",
-      "cwd": "${workspaceFolder}/MonoGameTemplate.ECS",
+      "program": "${workspaceFolder}/MonoGameEntry.ECS/bin/Debug/net8.0/MonoGameEntry.ECS.dll",
+      "cwd": "${workspaceFolder}/MonoGameEntry.ECS",
       "console": "internalConsole",
       "stopAtEntry": false
     }

@@ -1,8 +1,8 @@
-# MonoGameTemplate.Net8
+# MonoGameEntry.Net8
 
-A reusable starter template for building 2D desktop games with MonoGame and .NET 8. Provides reusable engine components and services while remaining architecture-agnostic.
+A modular MonoGame 3.8 (DesktopGL) framework built on .NET 8, designed for building scalable 2D games with clean architectural separation.
 
-This project provides a clean, modern foundation for creating MonoGame projects using the DesktopGL framework, with support for content management, reusable shared libraries, and preconfigured assets.
+It provides a reusable engine-style foundation supporting both **Entity Component System (ECS)** and **Object-Oriented (scene-based)** design, allowing developers to choose or combine paradigms depending on project needs.
 
 ---
 
@@ -53,7 +53,7 @@ This is the reusable “engine layer” used by both OOP and ECS templates.
 
 ---
 
-### 🎮 MonoGameTemplate.OOP (Object-Oriented Template)
+### 🎮 MonoGameEntry.OOP (Object-Oriented Template)
 
 A traditional game architecture using scene-based OOP design.
 
@@ -80,7 +80,7 @@ A traditional game architecture using scene-based OOP design.
 
 ---
 
-### ⚙️ MonoGameTemplate.ECS (Entity Component System Template)
+### ⚙️ MonoGameEntry.ECS (Entity Component System Template)
 
 A data-driven architecture using ECS principles.
 
@@ -138,7 +138,36 @@ A data-driven architecture using ECS principles.
 ## Solution Structure
 
 ```text
-MonoGameTemplate.Net8/
+MonoGameFramework.Net8/
+││
+├── MonoGameEntry.ECS/
+│   ├── Content/
+│   │   ├── Audio/
+│   │   ├── Fonts/
+│   │   ├── Maps/
+│   │   └── Content.mgcb
+│   ├── ECS/
+│   │   ├── Components/
+│   │   └── Systems/
+│   ├── Game/
+│   │   ├── Bootstrap/
+│   │   ├── Scenes/
+│   │   └── Game1.cs
+│   └── MonoGameEntry.ECS.csproj
+│
+├── MonoGameEntry.OOP/
+│   ├── Content/
+│   │   ├── Audio/
+│   │   ├── Fonts/
+│   │   ├── Maps/
+│   │   └── Content.mgcb
+│   ├── Entities/
+│   ├── Game/
+│   │   ├── Bootstrap/
+│   │   ├── Scenes/
+│   │   └── Game1.cs
+│   ├── Services/
+│   └── MonoGameEntry.OOP.csproj
 │
 ├── MonoGameLibrary/
 │   ├── Bootstrap/
@@ -156,36 +185,7 @@ MonoGameTemplate.Net8/
 │   ├── GameContext.cs
 │   └── MonoGameLibrary.csproj
 │
-├── MonoGameTemplate.ECS/
-│   ├── Content/
-│   │   ├── Audio/
-│   │   ├── Fonts/
-│   │   ├── Maps/
-│   │   └── Content.mgcb
-│   ├── ECS/
-│   │   ├── Components/
-│   │   └── Systems/
-│   ├── Game/
-│   │   ├── Bootstrap/
-│   │   ├── Scenes/
-│   │   └── Game1.cs
-│   └── MonoGameTemplate.ECS.csproj
-│
-├── MonoGameTemplate.OOP/
-│   ├── Content/
-│   │   ├── Audio/
-│   │   ├── Fonts/
-│   │   ├── Maps/
-│   │   └── Content.mgcb
-│   ├── Entities/
-│   ├── Game/
-│   │   ├── Bootstrap/
-│   │   ├── Scenes/
-│   │   └── Game1.cs
-│   ├── Services/
-│   └── MonoGameTemplate.OOP.csproj
-│
-└── MonoGameTemplate.sln
+└── MonoGameFramework.sln
 ```
 
 ## Getting Started
@@ -201,19 +201,19 @@ Install the following:
 ### Clone the Repository
 
 ```
-git clone https://github.com/CatFortman/MonoGameTemplate.Net8.git
+git clone https://github.com/CatFortman/MonoGameEntry.Net8.git
 ```
 
 ### Select Entry Project
 
 ```
-cd MonoGameTemplate.OOP     
+cd MonoGameEntry.OOP     
 ```
 
 or
 
 ```
-cd MonoGameTemplate.ECS     
+cd MonoGameEntry.ECS     
 ```
 
 ### Restore Dependencies
