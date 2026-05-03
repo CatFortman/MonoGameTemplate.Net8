@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using MonoGameLibrary.Bootstrap.Interfaces;
-using MonoGameTemplate.ECS.Bootstrap;
+using MonoGameTemplate.ECS.Game.Bootstrap;
 
 namespace MonoGameTemplate.ECS.Game1;
 

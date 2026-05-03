@@ -22,7 +22,7 @@ public class BounceSystem : IGameSystem
             var bounds = worldBounds.Value;
             var entities = scene.Entities;
 
-            foreach (var entity in entities.Query<BounceComponent, PositionComponent, VelocityComponent, SpriteComponent>(scene.ActiveEntities))
+            foreach (var entity in entities.Query<BounceComponent, PositionComponent, VelocityComponent, SpriteComponent>())
             {
                 ref var position = ref entities.GetRef<PositionComponent>(entity.Id);
                 ref var velocity = ref entities.GetRef<VelocityComponent>(entity.Id);

@@ -11,8 +11,8 @@ namespace MonoGameTemplate.OOP.Game.Scenes;
 public class GameScene : IScene
 {
     private GameSceneContext _context;
-
     private InputBuffer _inputBuffer = new InputBuffer();
+    private bool _playerEnemyCollisionLastFrame = false;
 
     public GameScene(GameSceneContext context)
     {
@@ -49,32 +49,27 @@ public class GameScene : IScene
 
     public void Update(GameContext context, GameTime gameTime)
     {
-        var keyboard = context.Input.Keyboard;
-
-        var input = new PlayerInput
-        {
-            Sprint = keyboard.IsKeyDown(Keys.Space),
-            Movement = new Vector2(
-                (keyboard.IsKeyDown(Keys.D) || keyboard.IsKeyDown(Keys.Right) ? 1 : 0) -
-                (keyboard.IsKeyDown(Keys.A) || keyboard.IsKeyDown(Keys.Left) ? 1 : 0),
-
-                (keyboard.IsKeyDown(Keys.S) || keyboard.IsKeyDown(Keys.Down) ? 1 : 0) -
-                (keyboard.IsKeyDown(Keys.W) || keyboard.IsKeyDown(Keys.Up) ? 1 : 0)
-            )
-        };
-
         _inputBuffer.Capture(context);
 
         _context.Player.MovePlayer(_inputBuffer.Current, _context.WorldBounds);
         _context.Player.Update(gameTime);
 
+        _context.Enemy.MoveEnemy(_context.WorldBounds);
         _context.Enemy.Update(gameTime);
-        _context.Enemy.ApplyBounds(_context.WorldBounds);
 
-        if (_context.Collision.Intersects(_context.Player, _context.Enemy))
+        if (_context.Enemy.DidBounce)
+        {
+            _context.Interaction.HandleEnemyWallCollision(_context.Enemy);
+        }
+
+        bool isColliding = _context.Collision.Intersects(_context.Player, _context.Enemy);
+
+        if (isColliding && !_playerEnemyCollisionLastFrame)
         {
             _context.Interaction.HandlePlayerEnemyCollision(_context.Player, _context.Enemy);
         }
+
+        _playerEnemyCollisionLastFrame = isColliding;
     }
 
     public void Draw(GameContext context, GameTime gameTime)
@@ -89,8 +84,8 @@ public class GameScene : IScene
         context.SpriteBatch.DrawString(
             _context.Font,
             "Use WASD or Arrow Keys. Hold Space to sprint.",
-            new Vector2(20, 20),
-            Color.White
+            new Vector2(25, 25),
+            Color.MonoGameOrange
         );
 
         context.SpriteBatch.End();

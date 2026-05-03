@@ -17,6 +17,11 @@ public class GameInteractionService
         _audio.PlayCollect();
     }
 
+    public void HandleEnemyWallCollision(Enemy enemy)
+    {
+        _audio.PlayBounce();
+    }
+
     private void RespawnEnemy(Enemy enemy)
     {
         enemy.Respawn(enemy.Bounds);

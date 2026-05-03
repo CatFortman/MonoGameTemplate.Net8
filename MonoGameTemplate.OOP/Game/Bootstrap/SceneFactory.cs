@@ -46,8 +46,15 @@ public class SceneFactory : ISceneFactory
         var playerSprite = atlas.CreateAnimatedSprite("slime-animation");
         var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
 
-        var player = new Player(playerSprite, new Vector2(100, 100));
-        var enemy = new Enemy(enemySprite, new Vector2(300, 300));
+        playerSprite.Scale = new Vector2(4f, 4f);
+        enemySprite.Scale = new Vector2(4f, 4f);
+
+        var player = new Player(playerSprite,  new Vector2(
+                tilemap.Columns / 2 * tilemap.TileWidth,
+                tilemap.Rows / 2 * tilemap.TileHeight
+            ));
+
+        var enemy = new Enemy(enemySprite, new Vector2(worldBounds.Left, worldBounds.Top));
 
         var sceneContext = new GameSceneContext
         {

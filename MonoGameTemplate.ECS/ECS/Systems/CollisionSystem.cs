@@ -21,7 +21,7 @@ public class CollisionSystem : IGameSystem
 
         var entities = eventScene.Entities;
 
-        var query = entities.Query<PositionComponent, BoundsComponent>(eventScene.ActiveEntities);
+        var query = entities.Query<PositionComponent, BoundsComponent>();
         var list = new List<Entity>(query);
 
         var currentCollisions = new HashSet<(int, int)>();

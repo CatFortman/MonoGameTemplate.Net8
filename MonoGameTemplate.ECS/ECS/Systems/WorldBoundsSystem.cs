@@ -25,7 +25,7 @@ public class WorldBoundsSystem : IGameSystem
 
             var entities = scene.Entities;
 
-            foreach (var entity in entities.Query<PositionComponent, BoundsComponent>(scene.ActiveEntities))
+            foreach (var entity in entities.Query<PositionComponent, BoundsComponent>())
             {
                 ref var pos = ref entities.GetRef<PositionComponent>(entity.Id);
                 var bounds = entities.Get<BoundsComponent>(entity.Id);

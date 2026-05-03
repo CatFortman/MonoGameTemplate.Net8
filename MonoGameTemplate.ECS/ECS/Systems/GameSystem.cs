@@ -11,7 +11,6 @@ namespace MonoGameTemplate.ECS.Systems;
 
 public class GameSystem : IGameSystem
 {
-
     public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
         if (scene is ICollisionEventScene eventScene)
@@ -30,6 +29,11 @@ public class GameSystem : IGameSystem
 
             eventScene.CollisionEvents.Clear();
         }
+    }
+
+    public void Draw(GameContext context, GameTime gameTime, IEcsScene scene)
+    {
+        // No drawing for this system
     }
 
     private void HandlePlayerEnemyCollision(Entity player, Entity enemy, IEcsScene scene)
@@ -63,10 +67,5 @@ public class GameSystem : IGameSystem
             MathF.Cos(angle),
             MathF.Sin(angle)
         );
-    }
-
-
-    public void Draw(GameContext context, GameTime gameTime, IEcsScene scene)
-    {
     }
 }

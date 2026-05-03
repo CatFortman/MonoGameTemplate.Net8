@@ -16,7 +16,7 @@ public class InputSystem : IGameSystem
         var entities = scene.Entities;
         var k = context.Input.Keyboard;
 
-        foreach (var entity in entities.Query<VelocityComponent>(scene.ActiveEntities))
+        foreach (var entity in entities.Query<VelocityComponent>())
         {
             if (!entity.Has<PlayerTag>())
                 continue;

@@ -16,7 +16,7 @@ public class MovementSystem : IGameSystem
 
         var entities = scene.Entities;
 
-        foreach (var entity in entities.Query<PositionComponent, VelocityComponent>(scene.ActiveEntities))
+        foreach (var entity in entities.Query<PositionComponent, VelocityComponent>())
         {
             ref var position = ref entities.GetRef<PositionComponent>(entity.Id);
             ref var velocity = ref entities.GetRef<VelocityComponent>(entity.Id);

@@ -10,7 +10,7 @@ public class VelocitySystem : IGameSystem
 {
     public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        foreach (var entity in scene.Entities.Query<PositionComponent, VelocityComponent>(scene.ActiveEntities))
+        foreach (var entity in scene.Entities.Query<PositionComponent, VelocityComponent>())
         {
             ref var position = ref scene.Entities.GetRef<PositionComponent>(entity.Id);
             ref var velocity = ref scene.Entities.GetRef<VelocityComponent>(entity.Id);

@@ -5,11 +5,11 @@ using MonoGameLibrary;
 using MonoGameLibrary.ECS;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Graphics;
-using MonoGameLibrary.Scenes;
+using MonoGameTemplate.ECS.Scenes;
 
 namespace MonoGameTemplate.ECS.Game.Scenes;
 
-public class EcsGameScene : IEcsScene
+public class EcsGameScene : ICollisionEventScene
 {
     private readonly EntityManager _entities;
     private readonly SystemManager _systems;
@@ -18,14 +18,14 @@ public class EcsGameScene : IEcsScene
     private readonly Tilemap _tilemap;
     private readonly SpriteFont _font;
 
-    private readonly HashSet<int> _activeEntities = new();
-
     public EntityManager Entities => _entities;
-    public HashSet<int> ActiveEntities => _activeEntities;
 
     public Rectangle WorldBounds => _worldBounds;
     public Tilemap Tilemap => _tilemap;
     public SpriteFont Font => _font;
+
+    private readonly List<(Entity A, Entity B)> _collisionEvents = new();
+    public List<(Entity A, Entity B)> CollisionEvents => _collisionEvents;
 
     public EcsGameScene(
         EntityManager entities,
@@ -45,6 +45,7 @@ public class EcsGameScene : IEcsScene
 
     public void Update(GameContext context, GameTime gameTime)
     {
+        _collisionEvents.Clear();
         _systems.Update(context, gameTime, this);
     }
 

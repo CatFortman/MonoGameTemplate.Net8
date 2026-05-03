@@ -10,6 +10,7 @@ public class Enemy : IGameObject, ICollidable
 {
     public Vector2 Position { get; private set; }
     public Vector2 Velocity { get; private set; }
+    public bool DidBounce { get; private set; }
 
     private AnimatedSprite _sprite;
 
@@ -52,10 +53,26 @@ public class Enemy : IGameObject, ICollidable
 
     public void ApplyBounds(Rectangle bounds)
     {
+
+    }
+
+
+    public void MoveEnemy(Rectangle bounds)
+    {
+        DidBounce = false;
+
+        Position += Velocity;
+
         if (Position.X <= bounds.Left || Position.X + _sprite.Width >= bounds.Right)
+        {
             Velocity = new Vector2(-Velocity.X, Velocity.Y);
+            DidBounce = true;
+        }
 
         if (Position.Y <= bounds.Top || Position.Y + _sprite.Height >= bounds.Bottom)
+        {
             Velocity = new Vector2(Velocity.X, -Velocity.Y);
+            DidBounce = true;
+        }
     }
 }

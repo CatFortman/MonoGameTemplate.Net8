@@ -8,7 +8,7 @@ public class SpriteUpdateSystem : IGameSystem
 {
     public void Update(GameContext context, GameTime gameTime, IEcsScene scene)
     {
-        foreach (var entity in scene.Entities.Query<SpriteComponent>(scene.ActiveEntities))
+        foreach (var entity in scene.Entities.Query<SpriteComponent>())
         {
             scene.Entities.GetRef<SpriteComponent>(entity.Id)
                           .Sprite.Update(gameTime);

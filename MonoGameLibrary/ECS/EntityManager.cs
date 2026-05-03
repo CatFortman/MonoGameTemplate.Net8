@@ -111,58 +111,58 @@ public class EntityManager
     {
         foreach (var entity in _entities.Values)
         {
-            if (HasComponent<T1>(entity.Id) &&
-                HasComponent<T2>(entity.Id) &&
-                HasComponent<T3>(entity.Id) &&
-                HasComponent<T4>(entity.Id))
+            if (entity.Has<T1>() &&
+                entity.Has<T2>() && 
+                entity.Has<T3>() &&
+                entity.Has<T4>())
                 yield return entity;
         }
     }
 
-    public IEnumerable<Entity> Query<T1>(HashSet<int> active)
+    public IEnumerable<Entity> Query<T1>()
     {
-        foreach (var id in active)
+        foreach (var entity in _entities.Values)
         {
-            if (HasComponent<T1>(id))
-                yield return _entities[id];
+            if (entity.Has<T1>())
+                yield return entity;
         }
     }
 
-    public IEnumerable<Entity> Query<T1, T2>(HashSet<int> active)
+    public IEnumerable<Entity> Query<T1, T2>()
     {
-        foreach (var id in active)
+        foreach (var entity in _entities.Values)
         {
-            if (HasComponent<T1>(id) &&
-                HasComponent<T2>(id))
+            if (entity.Has<T1>() &&
+                entity.Has<T2>())
             {
-                yield return _entities[id];
+                yield return entity;
             }
         }
     }
 
-    public IEnumerable<Entity> Query<T1, T2, T3>(HashSet<int> active)
+    public IEnumerable<Entity> Query<T1, T2, T3>()
     {
-        foreach (var id in active)
+        foreach (var entity in _entities.Values)
         {
-            if (HasComponent<T1>(id) &&
-                HasComponent<T2>(id) &&
-                HasComponent<T3>(id))
+            if (entity.Has<T1>() &&
+                entity.Has<T2>() &&
+                entity.Has<T3>())
             {
-                yield return _entities[id];
+                yield return entity;
             }
         }
     }
 
-     public IEnumerable<Entity> Query<T1, T2, T3, T4>(HashSet<int> active)
+    public IEnumerable<Entity> Query<T1, T2, T3, T4>()
     {
-        foreach (var id in active)
+        foreach (var entity in _entities.Values)
         {
-            if (HasComponent<T1>(id) &&
-                HasComponent<T2>(id) &&
-                HasComponent<T3>(id) &&
-                HasComponent<T4>(id))
+            if (entity.Has<T1>() &&
+                entity.Has<T2>() &&
+                entity.Has<T3>() &&
+                entity.Has<T4>())
             {
-                yield return _entities[id];
+                yield return entity;
             }
         }
     }

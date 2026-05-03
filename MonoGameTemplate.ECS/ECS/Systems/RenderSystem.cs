@@ -1,6 +1,5 @@
 using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS.Systems;
 using MonoGameLibrary.Scenes;
@@ -19,7 +18,7 @@ public class RenderSystem : IGameSystem
     {
         var entities = scene.Entities;
 
-        foreach (var entity in entities.Query<PositionComponent, SpriteComponent>(scene.ActiveEntities))
+        foreach (var entity in entities.Query<PositionComponent, SpriteComponent>())
         {
             var position = entities.Get<PositionComponent>(entity.Id);
             var sprite = entities.Get<SpriteComponent>(entity.Id);

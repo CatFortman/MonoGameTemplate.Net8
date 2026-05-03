@@ -31,4 +31,5 @@ public class CollisionService
 
         return (dx * dx + dy * dy) <= circle.Radius * circle.Radius;
     }
+
 }

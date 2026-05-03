@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using MonoGameLibrary;
 using MonoGameLibrary.ECS;
@@ -35,8 +36,11 @@ public class SceneFactory : ISceneFactory
 
         RegisterSystems(systems);
 
-        CreatePlayer(entities, context, tilemap);
-        CreateEnemy(entities, context, worldBounds);
+        var atlas = TextureAtlas.FromFile(context.Content, "atlas-definition.xml");
+
+
+        CreatePlayer(entities, context, tilemap, atlas);
+        CreateEnemy(entities, context, worldBounds, atlas);
 
         return new EcsGameScene(
             entities,
@@ -59,15 +63,16 @@ public class SceneFactory : ISceneFactory
         systems.Add(new RenderSystem());
     }
 
-    private void CreatePlayer(EntityManager entities, GameContext context, Tilemap tilemap)
+    private void CreatePlayer(EntityManager entities, GameContext context, Tilemap tilemap, TextureAtlas atlas)
     {
         var player = entities.CreateEntity();
 
-        var sprite = context.Content
-            .Load<TextureAtlas>("atlas-definition.xml")
-            .CreateAnimatedSprite("slime-animation");
+        var playerSprite = atlas.CreateAnimatedSprite("slime-animation");
 
-        sprite.Scale = new Vector2(4f, 4f);
+        playerSprite.Scale = new Vector2(4f, 4f);
+
+        var collectSound = context.Content.Load<SoundEffect>("Audio/collect");
+        player.Add(new CollectSoundComponent { Sound = collectSound });
 
         player.Add(new PositionComponent
         {
@@ -78,21 +83,22 @@ public class SceneFactory : ISceneFactory
         });
 
         player.Add(new VelocityComponent { Value = Vector2.Zero });
-        player.Add(new SpriteComponent { Sprite = sprite });
-        player.Add(new BoundsComponent { Width = sprite.Width, Height = sprite.Height });
+        player.Add(new SpriteComponent { Sprite = playerSprite });
+        player.Add(new BoundsComponent { Width = playerSprite.Width, Height = playerSprite.Height });
 
         player.Add(new PlayerTag());
     }
 
-    private void CreateEnemy(EntityManager entities, GameContext context, Rectangle worldBounds)
+    private void CreateEnemy(EntityManager entities, GameContext context, Rectangle worldBounds, TextureAtlas atlas)
     {
         var bat = entities.CreateEntity();
 
-        var sprite = context.Content
-            .Load<TextureAtlas>("atlas-definition.xml")
-            .CreateAnimatedSprite("bat-animation");
+        var enemySprite = atlas.CreateAnimatedSprite("bat-animation");
 
-        sprite.Scale = new Vector2(4f, 4f);
+        enemySprite.Scale = new Vector2(4f, 4f);
+
+        var bounceSound = context.Content.Load<SoundEffect>("Audio/bounce");
+        bat.Add(new BounceSoundComponent { Sound = bounceSound });
 
         bat.Add(new PositionComponent
         {
@@ -104,8 +110,8 @@ public class SceneFactory : ISceneFactory
             Value = RandomDirection() * 3f
         });
 
-        bat.Add(new SpriteComponent { Sprite = sprite });
-        bat.Add(new BoundsComponent { Width = sprite.Width, Height = sprite.Height });
+        bat.Add(new SpriteComponent { Sprite = enemySprite });
+        bat.Add(new BoundsComponent { Width = enemySprite.Width, Height = enemySprite.Height });
 
         bat.Add(new BounceComponent());
         bat.Add(new EnemyTag());
