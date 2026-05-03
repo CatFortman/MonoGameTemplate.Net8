@@ -1,4 +1,4 @@
-# MonoGameEntry.Net8
+# MonoGameFramework.Net8
 
 A modular MonoGame 3.8 (DesktopGL) framework built on .NET 8, designed for building scalable 2D games with clean architectural separation.
 
@@ -201,7 +201,7 @@ Install the following:
 ### Clone the Repository
 
 ```
-git clone https://github.com/CatFortman/MonoGameEntry.Net8.git
+git clone https://github.com/CatFortman/MonoGameFramework.Net8.git
 ```
 
 ### Select Entry Project
