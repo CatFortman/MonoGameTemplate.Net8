@@ -142,25 +142,19 @@ MonoGameTemplate.Net8/
 │
 ├── MonoGameLibrary/
 │   ├── Bootstrap/
+│   ├── ECS/
+│   │   ├── Interfaces/
+│   │   ├── Systems/
+│   │   ├── ComponentStore.cs/
+│   │   ├── Entity.cs/
+│   │   └── EntityManager.cs/
 │   ├── Graphics/
 │   ├── Input/
 │   ├── Models/
-│   ├── ECS/
 │   ├── Scenes/
 │   ├── Core.cs
 │   ├── GameContext.cs
 │   └── MonoGameLibrary.csproj
-│
-├── MonoGameTemplate.OOP/
-│   ├── Content/
-│   │   ├── Audio/
-│   │   ├── Fonts/
-│   │   ├── Maps/
-│   │   └── Content.mgcb
-│   ├── Scenes/
-│   ├── Game/
-│   │   └──  GameScene.cs
-│   └── MonoGameTemplate.OOP.csproj
 │
 ├── MonoGameTemplate.ECS/
 │   ├── Content/
@@ -168,13 +162,28 @@ MonoGameTemplate.Net8/
 │   │   ├── Fonts/
 │   │   ├── Maps/
 │   │   └── Content.mgcb
-│   ├── Scenes/
 │   ├── ECS/
-│   │   ├── Systems/
-│   │   └── Components/
+│   │   ├── Components/
+│   │   └── Systems/
 │   ├── Game/
-│   │   └──  GameScene.cs
+│   │   ├── Bootstrap/
+│   │   ├── Scenes/
+│   │   └── Game1.cs
 │   └── MonoGameTemplate.ECS.csproj
+│
+├── MonoGameTemplate.OOP/
+│   ├── Content/
+│   │   ├── Audio/
+│   │   ├── Fonts/
+│   │   ├── Maps/
+│   │   └── Content.mgcb
+│   ├── Entities/
+│   ├── Game/
+│   │   ├── Bootstrap/
+│   │   ├── Scenes/
+│   │   └── Game1.cs
+│   ├── Services/
+│   └── MonoGameTemplate.OOP.csproj
 │
 └── MonoGameTemplate.sln
 ```
@@ -259,7 +268,7 @@ Potential additions:
 - Audio manager
 - Shader/effects support
 - Save/load system
-
+- Additional Scenes
 
 ## Acknowledgements
 

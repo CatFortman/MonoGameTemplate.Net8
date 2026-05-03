@@ -1,4 +1,4 @@
-using MonoGameLibrary.Components;
+using MonoGameLibrary.ECS.Interfaces;
 
 namespace MonoGameTemplate.ECS.Components
 {
